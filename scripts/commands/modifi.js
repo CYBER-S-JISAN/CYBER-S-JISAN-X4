@@ -3,13 +3,14 @@ const path = require("path");
 
 module.exports.config = {
   name: "modifi",
-  version: "1.1.0",
+  version: "1.3.0",
   permission: 1, // শুধু অ্যাডমিন
   credits: "Shakib",
-  description: "Replace old name with new name in all files",
-  commandCategory: "admin",
+  description: "Replace old name with new name in all .js, .json, .txt files",
+  category: "admin",
   usages: "-modifi [পুরানোনাম] [নতুননাম]",
   cooldowns: 5,
+  prefix: true // <-- prefix চালু
 };
 
 module.exports.run = async ({ api, event, args }) => {
@@ -17,7 +18,7 @@ module.exports.run = async ({ api, event, args }) => {
     return api.sendMessage("❌ Usage: -modifi [পুরানোনাম] [নতুননাম]", event.threadID);
 
   const oldName = args[0];
-  const newName = args.slice(1).join(" "); // বাকি সব args newName
+  const newName = args.slice(1).join(" ");
 
   const replaceName = (dir) => {
     fs.readdirSync(dir).forEach(file => {
@@ -25,6 +26,8 @@ module.exports.run = async ({ api, event, args }) => {
       if (fs.statSync(filePath).isDirectory()) {
         replaceName(filePath);
       } else {
+        if (!filePath.endsWith(".js") && !filePath.endsWith(".json") && !filePath.endsWith(".txt")) return;
+
         try {
           let content = fs.readFileSync(filePath, "utf8");
           const regex = new RegExp(oldName, "g");
