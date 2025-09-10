@@ -40,8 +40,8 @@ module.exports.run = async ({ api, event }) => {
 🔥 সীমিত সময়ের অফার – এখনই অর্ডার করুন আর পেয়ে যান আপনার নিজের স্মার্ট Messenger Bot! ✅
 
 📩 যোগাযোগ:
-👉 Messenger: https://m.me/s.a.k.i.b.tsu.863539
-👉 WhatsApp: https://wa.me/8801920826878
+👉 Messenger: m.me/s.a.k.i.b.tsu.863539
+👉 WhatsApp: wa.me/8801920826878
 `;
 
   const imageURL = "https://i.postimg.cc/rptS5cVn/20250902-001924.png";
