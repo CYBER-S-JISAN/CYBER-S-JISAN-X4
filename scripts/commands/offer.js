@@ -1,12 +1,9 @@
-const fs = require("fs-extra");
-const request = require("request");
-
 module.exports.config = {
   name: "offer",
-  version: "1.0.0",
+  version: "1.0.1",
   permission: 0,
   credits: "Shakib",
-  description: "Send Messenger Bot Collection offer with image and links",
+  description: "Send Messenger Bot Collection offer with clickable links (text only)",
   prefix: true,
   category: "INFO",
   usages: "offer",
@@ -40,24 +37,15 @@ module.exports.run = async ({ api, event }) => {
 🔥 সীমিত সময়ের অফার – এখনই অর্ডার করুন আর পেয়ে যান আপনার নিজের স্মার্ট Messenger Bot! ✅
 
 📩 যোগাযোগ:
-👉 Messenger: m.me/s.a.k.i.b.tsu.863539
-👉 WhatsApp: wa.me/8801920826878
+👉 Messenger: https://m.me/s.a.k.i.b.tsu.863539
+👉 WhatsApp: https://wa.me/8801920826878
 `;
 
-  const imageURL = "https://i.postimg.cc/rptS5cVn/20250902-001924.png";
-  const imagePath = __dirname + "/cache/offer.png";
-
-  request(encodeURI(imageURL))
-    .pipe(fs.createWriteStream(imagePath))
-    .on("close", () => {
-      api.sendMessage(
-        {
-          body: offerText,
-          attachment: fs.createReadStream(imagePath)
-        },
-        event.threadID,
-        () => fs.unlinkSync(imagePath),
-        event.messageID
-      );
-    });
+  api.sendMessage(
+    {
+      body: offerText
+    },
+    event.threadID,
+    event.messageID
+  );
 };
