@@ -3,17 +3,17 @@ const request = require("request");
 
 module.exports.config = {
   name: "offer",
-  version: "1.1.0",
+  version: "1.0.0",
   permission: 0,
   credits: "Shakib",
-  description: "Send Messenger Bot Collection offer with creative buttons",
+  description: "Send Messenger Bot Collection offer with image and links",
   prefix: true,
   category: "INFO",
   usages: "offer",
   cooldowns: 5
 };
 
-module.exports.run = async ({ api, event, args }) => {
+module.exports.run = async ({ api, event }) => {
   const offerText = `
 🚀✨ আপনার জন্য দারুন অফার – Messenger Bot Collection ✨🚀
 
@@ -38,9 +38,13 @@ module.exports.run = async ({ api, event, args }) => {
 ✔️ প্যাকেজ + Modified Bot সহ = ৳3000
 
 🔥 সীমিত সময়ের অফার – এখনই অর্ডার করুন আর পেয়ে যান আপনার নিজের স্মার্ট Messenger Bot! ✅
+
+📩 যোগাযোগ:
+👉 Messenger: https://m.me/s.a.k.i.b.tsu.863539
+👉 WhatsApp: https://wa.me/8801920826878
 `;
 
-  const imageURL = "https://i.postimg.cc/rptS5cVn/20250902-001924.png"; 
+  const imageURL = "https://i.postimg.cc/rptS5cVn/20250902-001924.png";
   const imagePath = __dirname + "/cache/offer.png";
 
   request(encodeURI(imageURL))
@@ -49,26 +53,7 @@ module.exports.run = async ({ api, event, args }) => {
       api.sendMessage(
         {
           body: offerText,
-          attachment: fs.createReadStream(imagePath),
-          template: {
-            type: "button",
-            payload: {
-              template_type: "button",
-              text: "📲 যোগাযোগ করতে নিচের বাটনে ক্লিক করুন!",
-              buttons: [
-                {
-                  type: "web_url",
-                  url: "https://m.me/s.a.k.i.b.tsu.863539",
-                  title: "💬 Messenger"
-                },
-                {
-                  type: "web_url",
-                  url: "https://wa.me/8801920826878",
-                  title: "📞 WhatsApp"
-                }
-              ]
-            }
-          }
+          attachment: fs.createReadStream(imagePath)
         },
         event.threadID,
         () => fs.unlinkSync(imagePath),
